@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cajero Automático</title>
+  <script>
+    var cuentas = [
+      { nombre: "Mali", saldo: 200 },
+      { nombre: "Gera", saldo: 290 },
+      { nombre: "Maui", saldo: 67 }
+    ];
+
+    function seleccionarCuenta() {
+      var nombreCuenta = document.getElementById("cuenta").value;
+      var cuenta = null;
+
+      for (var i = 0; i < cuentas.length; i++) {
+        if (cuentas[i].nombre === nombreCuenta) {
+          cuenta = cuentas[i];
+          break;
+        }
+      }
+
+      if (cuenta) {
+        var password = prompt("Ingrese el password asociado a la cuenta:");
+        if (verificarPassword(cuenta, password)) {
+          mostrarOpciones(cuenta);
+        } else {
+          alert("Password incorrecto. Inténtelo nuevamente.");
+        }
+      } else {
+        alert("Cuenta no encontrada.");
+      }
+    }
+
+    function verificarPassword(cuenta, password) {
+      // Aquí puedes implementar tu lógica de verificación de password
+      // Puedes utilizar un arreglo de objetos con las cuentas y sus passwords asociados
+      // En este ejemplo, simplemente se compara el password con una cadena fija
+      return password === "123456";
+    }
+
+    function mostrarOpciones(cuenta) {
+      var opcion = prompt("Seleccione una opción:\n\n1. Consultar saldo\n2. Ingresar monto\n3. Retirar monto");
+
+      switch (opcion) {
+        case "1":
+          alert("Saldo actual: $" + cuenta.saldo);
+          break;
+        case "2":
+          var montoIngresado = prompt("Ingrese el monto a ingresar:");
+          montoIngresado = parseFloat(montoIngresado);
+          if (isNaN(montoIngresado) || montoIngresado <= 0) {
+            alert("Monto inválido.");
+          } else {
+            cuenta.saldo += montoIngresado;
+            alert("Monto ingresado: $" + montoIngresado + "\nNuevo saldo: $" + cuenta.saldo);
+          }
+          break;
+        case "3":
+          var montoRetirar = prompt("Ingrese el monto a retirar:");
+          montoRetirar = parseFloat(montoRetirar);
+          if (isNaN(montoRetirar) || montoRetirar <= 0) {
+            alert("Monto inválido.");
+          } else if (montoRetirar > cuenta.saldo) {
+            alert("Saldo insuficiente.");
+          } else if (cuenta.saldo - montoRetirar < 10 || cuenta.saldo - montoRetirar > 990) {
+            alert("El retiro no cumple con la regla de negocio.\nEl saldo debe estar entre $10 y $990 después del retiro.");
+          } else {
+            cuenta.saldo -= montoRetirar;
+            alert("Monto retirado: $" + montoRetirar + "\nNuevo saldo: $" + cuenta.saldo);
+          }
+          break;
+        default:
+          alert("Opción inválida.");
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Cajero Automático</h1>
+
+  <label for="cuenta">Seleccione una cuenta:</label>
+  <select id="cuenta">
+    <option value="Mali">Persona 1</option>
+    <option value="Gera">Persona 2</option>
+    <option value="Maui">Persona 3</option>
+  </select>
+  <br><br>
+  <button onclick="seleccionarCuenta()">Ingresar</button>
+</body>
+</html>
