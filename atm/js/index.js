@@ -1,30 +1,62 @@
 var formulario = document.querySelector('#select-account')
+const select = document.querySelector('select')
+const body = document.querySelector('body')
 
-
-const cuenta = [
+const cuentas = [
     {id: 10, nombre: "rodrigo", saldo: 900, pin: '0000'},
     {id: 24, nombre: "enrique", saldo: 990, pin: '0000'},
     {id: 11, nombre: "miguel", saldo: 200, pin: '0000'},
 ]
 
+const validatePIN = (id, pin) => {
+    let selected = cuentas.filter(
+        (cuenta)=> {
+            return cuenta.id === parseInt(id) 
+        }  
+    )
+    console.log(pin, selected)
+      if(selected[0].pin === pin) {
+        alert('Bienvenido')
+        body.innerHTML= ''
+      } else {
+        alert('Intenta nuevamente')
+      }
+};
+
+
+
+
 formulario.addEventListener('submit', (event)=> {
-    event.preventDefault()
+    event.preventDefault();
+    let user_id = event.target["cuenta"].value;
+
+
     let pin = prompt("Ingrese su pin","");
         if (pin != null) {
-            if (pin === '0000'){
+
+            validatePIN(user_id, pin)
+          /*   if (pin === '0000'){
                 console.log('Correcto')
             } else {
                 console.log('Incorrecto')
             }
 
-            console.log(pin)
+            console.log(pin) */
         } 
 /*     console.log(event.target[0].value) */
 
-}
+})
 
-)
+cuentas.forEach((cuenta)=> {
+    let option = document.createElement('option');
+    option.value = cuenta.id;
+    option.innerText = cuenta.nombre;
+    select.appendChild(option);
 
+
+});
+
+{/* <option value="10">Rodrigo</option> */}
 
 //Pseudocodigo
 
