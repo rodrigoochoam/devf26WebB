@@ -8,7 +8,7 @@ let ahoActual = Number(prompt("Escribe el año actual: "));
 
 let edad = ahoActual - ahoNacimiento
 
-VALIDACION PARA SABER SI EL USUARIO INGRESO LOS DATOS SOLICITADOS
+//VALIDACION PARA SABER SI EL USUARIO INGRESO LOS DATOS SOLICITADOS
 if (nombreCompleto == "" || ahoNacimiento == 0 || ahoActual == 0) {
     let mensaje = "The hacen falta datos";
 }
