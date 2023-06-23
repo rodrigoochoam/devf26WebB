@@ -17,7 +17,8 @@ const validatePIN = (id, pin) => {
     console.log(pin, selected)
       if(selected[0].pin === pin) {
         alert('Bienvenido')
-        body.innerHTML= ''
+       /*  body.innerHTML= '' */
+       /*  location.href = "/opciones?id=10"; */
       } else {
         alert('Intenta nuevamente')
       }
